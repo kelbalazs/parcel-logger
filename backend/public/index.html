@@ -50,7 +50,7 @@
         }, [filterApartmentId]);
 
         const fetchApartments = () => {
-          fetch("https://fair-rose-beetle-vest.cyclic.app/apartments")
+          fetch("https://parcel-logger.onrender.com/apartments")
             .then((response) => response.json())
             .then((data) => setApartments(data))
             .catch((error) =>
@@ -60,7 +60,7 @@
 
         const fetchDeliveries = (apartmentId) => {
         
-            let url = `https://fair-rose-beetle-vest.cyclic.app/apartments/${apartmentId}/deliveries`;
+            let url = `https://parcel-logger.onrender.com/apartments/${apartmentId}/deliveries`;
 
           fetch(url)
             .then((response) => response.json())
@@ -86,7 +86,7 @@
             status: false,
           };
 
-          fetch("https://fair-rose-beetle-vest.cyclic.app/deliveries", {
+          fetch("https://parcel-logger.onrender.com/deliveries", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -116,7 +116,7 @@
         };
 
         const handleDeliveryStatusChange = (deliveryId, newStatus) => {
-          fetch(`https://fair-rose-beetle-vest.cyclic.app/deliveries/${deliveryId}`, {
+          fetch(`https://parcel-logger.onrender.com/deliveries/${deliveryId}`, {
             method: "PATCH",
             headers: {
               "Content-Type": "application/json",
