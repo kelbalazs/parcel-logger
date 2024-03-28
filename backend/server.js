@@ -2,6 +2,7 @@ const express = require("express");
 const mysql = require("mysql");
 const cors = require("cors");
 const path = require("path");
+
 const app = express();
 const port = 3000;
 
@@ -11,10 +12,10 @@ app.use(express.json());
 
 // Database connection
 const db = mysql.createConnection({
-    host: "154.56.34.16",
-  user: "u677060802_kelbalazs",
-  password: "Kiskuty@1",
-  database: "u677060802_parcellogger",
+  host: "154.56.34.16",
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: "u677060802\_parcellogger",
 });
 
 db.connect((err) => {
@@ -32,64 +33,7 @@ app.use(
 );
 
 // Routes
-app.get("/apartments/:apartmentId/deliveries", (req, res) => {
-  const apartmentId = req.params.apartmentId;
-  db.query(
-    "SELECT * FROM deliveries WHERE apartment_id = ?",
-    apartmentId,
-    (err, results) => {
-      if (err) {
-        console.error("Error retrieving deliveries:", err);
-        return res.status(500).json({ error: "Internal server error" });
-      }
-      res.json(results);
-    }
-  );
-});
-
-app.get("/apartments", (req, res) => {
-  db.query("SELECT * FROM apartments", (err, results) => {
-    if (err) {
-      throw err;
-    }
-    res.json(results);
-  });
-});
-
-app.post("/deliveries", (req, res) => {
-  const delivery = req.body;
-  db.query("INSERT INTO deliveries SET ?", delivery, (err, result) => {
-    if (err) {
-      throw err;
-    }
-    res.send("Delivery added to the database");
-  });
-});
-
-app.patch("/deliveries/:id", (req, res) => {
-  const id = req.params.id;
-  const newStatus = req.body.status;
-  db.query(
-    "UPDATE deliveries SET status = ? WHERE id = ?",
-    [newStatus, id],
-    (err, result) => {
-      if (err) {
-        throw err;
-      }
-      res.send("Delivery status updated");
-    }
-  );
-});
-
-app.delete("/deliveries/:id", (req, res) => {
-  const id = req.params.id;
-  db.query("DELETE FROM deliveries WHERE id = ?", id, (err, result) => {
-    if (err) {
-      throw err;
-    }
-    res.send("Delivery deleted from the database");
-  });
-});
+// ... (your existing routes)
 
 // Start server
 app.listen(port, () => {
